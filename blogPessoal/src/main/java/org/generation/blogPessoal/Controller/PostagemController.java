@@ -46,4 +46,6 @@ public class PostagemController {
 	public ResponseEntity<Postagem>post(@RequestBody Postagem postagem){
 		return ResponseEntity.status(HttpStatus.CREATED).body(repositoty.save(postagem));		
 	}
+	
+	//Terminar as ativades em breve vi ate o video 14 +-
 }
