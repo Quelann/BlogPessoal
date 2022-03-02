@@ -22,8 +22,7 @@ public class UsuarioService {
 	public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
 
 		if (usuarioRepository.findByUsuario(usuario.getUsuario()).isPresent())
-			return Optional.empty();
-
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuario já existe!", null);
 		usuario.setSenha(criptografarSenha(usuario.getSenha()));
 		return Optional.of(usuarioRepository.save(usuario));
 
@@ -58,7 +57,8 @@ public class UsuarioService {
 				return usuarioLogin;
 			}
 		}
-		return Optional.empty();
+		throw new ResponseStatusException(
+				HttpStatus.UNAUTHORIZED, "Usuário ou senha inválidos!", null);
 	}
 	
 	private String criptografarSenha(String senha) {
